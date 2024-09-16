@@ -1,13 +1,14 @@
 // pages/index.tsx
+import * as React from 'react';
+import Layout from '../components/Layout';
 
-import React from 'react';
-
-const HomePage: React.FC = () => {
+const Home: React.FC = () => {
   return (
-    <div>
-      <h1>Welcome to My Next.js App with TypeScript!</h1>
-    </div>
+    <Layout>
+      <h1>Welcome to the Home Page</h1>
+      <p>This is the home page content.</p>
+    </Layout>
   );
 };
 
-export default HomePage;
+export default Home;
