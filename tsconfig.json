@@ -1,14 +1,8 @@
 {
   "compilerOptions": {
-    /* Language and Environment */
     "target": "ESNext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "jsx": "preserve",
-    /* Modules */
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "preserve", // Keep as 'preserve' for Next.js
     "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -16,21 +10,16 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    /* Emit */
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
-    /* Paths */
     "baseUrl": ".",
+    "paths": {
+      "*": ["types/*"]
+    },
     "allowJs": true,
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "types/next-auth.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
