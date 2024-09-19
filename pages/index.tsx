@@ -1,22 +1,46 @@
 // pages/index.tsx
-import * as React from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Layout from '../components/Layout';
+import { authorizedEmails } from '../authorizedUsers';
 
-const Home: React.FC = () => {
+interface HomeProps {
+  userName: string;
+}
 
-  const { data: session, status } = useSession();
-
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <Layout>
-      <h1>Welcome to the Home Page</h1>
-      <p>This is the home page content.</p>
-    </Layout>
-  );
-};
+const Home: React.FC<HomeProps> = ({ userName }) => (
+  <Layout>
+    <h1>Welcome, {userName}</h1>
+    <p>This is the home page content.</p>
+  </Layout>
+);
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (!session || !session.user || !session.user.email) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  if (!authorizedEmails.includes(session.user.email)) {
+    return {
+      redirect: {
+        destination: '/auth/unauthorized',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      userName: session.user.name,
+    },
+  };
+};

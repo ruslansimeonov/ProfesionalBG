@@ -1,15 +1,10 @@
 // pages/_app.tsx
-import * as React from 'react';
-import { AppProps } from 'next/app';
-import CssBaseline from '@mui/material/CssBaseline';
 import { SessionProvider } from 'next-auth/react';
+import { AppProps } from 'next/app';
+import React from 'react';
 
-const MyApp: React.FC<AppProps> = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}) => (
-  <SessionProvider session={session}>
-    <CssBaseline />
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => (
+  <SessionProvider session={pageProps.session}>
     <Component {...pageProps} />
   </SessionProvider>
 );
