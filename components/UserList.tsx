@@ -17,10 +17,14 @@ const UserList: React.FC<UserListProps> = ({
   itemsPerPage,
   onPageChange,
 }) => {
-  const paginatedUsers = users.slice(
-    (page - 1) * itemsPerPage,
-    page * itemsPerPage
+  // Remove duplicates based on socialSecurityNumber
+  const uniqueUsers = Array.from(
+    new Map(users.map((user) => [user.socialSecurityNumber, user])).values()
   );
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedUsers = uniqueUsers.slice(startIndex, endIndex);
 
   return (
     <>
@@ -30,7 +34,7 @@ const UserList: React.FC<UserListProps> = ({
         ))}
       </Grid2>
       <Pagination
-        count={Math.ceil(users.length / itemsPerPage)}
+        count={Math.ceil(uniqueUsers.length / itemsPerPage)}
         page={page}
         onChange={onPageChange}
         color="primary"
