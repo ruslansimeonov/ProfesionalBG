@@ -7,7 +7,6 @@ import {
   Grid2,
   Avatar,
   Button,
-  IconButton,
 } from '@mui/material'; // Correct import for Grid2
 import Pagination from '@mui/material/Pagination';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -37,33 +36,33 @@ export default function Users() {
         if (!response.ok) {
           throw new Error('Failed to fetch users');
         }
-        const data: { users: UserSheets[] } = await response.json();
+        const data: { users: (string | number)[][] } = await response.json(); // Assuming the sheet data is an array of arrays
         console.log(data);
         console.log(data.users);
 
         // Transform the array data into UserSheets type
         const transformedUsers: UserSheets[] = data.users.map((user) => ({
-          firstName: user[0],
-          middleName: user[1],
-          lastName: user[2],
+          firstName: user[0] as string,
+          middleName: user[1] as string,
+          lastName: user[2] as string,
           socialSecurityNumber: Number(user[3]),
-          placeOfWork: user[4],
-          birthPlace: user[5],
-          permanentAddress: user[6],
-          phoneNumber: user[7],
-          emailAddress: user[8],
-          cityToSignUp: user[9],
-          courseToSignUp: user[10],
-          trusteeName: user[11],
-          photoForDocumentLink: user[12],
-          driverLicenseLink: user[13],
-          idCardLink: user[14],
-          medicalCertificateLink: user[15],
-          educationDocumentLink: user[16],
-          medicalPsychiatristLink: user[17],
-          copyOfExsistingLicenseLink: user[18],
-          dateOfSignUp: user[19],
-          signatureLink: user[20],
+          placeOfWork: user[4] as string,
+          birthPlace: user[5] as string,
+          permanentAddress: user[6] as string,
+          phoneNumber: user[7] as string,
+          emailAddress: user[8] as string,
+          cityToSignUp: user[9] as string,
+          courseToSignUp: user[10] as string,
+          trusteeName: user[11] as string,
+          photoForDocumentLink: user[12] as string,
+          driverLicenseLink: user[13] as string,
+          idCardLink: user[14] as string,
+          medicalCertificateLink: user[15] as string,
+          educationDocumentLink: user[16] as string,
+          medicalPsychiatristLink: user[17] as string,
+          copyOfExsistingLicenseLink: user[18] as string,
+          dateOfSignUp: user[19] as string,
+          signatureLink: user[20] as string,
         }));
 
         setUsers(transformedUsers);
@@ -115,7 +114,7 @@ export default function Users() {
         <>
           <Grid2 container spacing={4}>
             {paginatedUsers.map((user) => (
-              <Grid2 size={4}>
+              <Grid2 size={4} key={user.socialSecurityNumber}>
                 <Card>
                   <CardContent>
                     <Grid2 container spacing={2} alignItems="center">
@@ -135,93 +134,173 @@ export default function Users() {
                       </Grid2>
                     </Grid2>
                     <Typography variant="body2" color="text.secondary">
-                      <strong>EGN:</strong> {user.socialSecurityNumber}
-                      <br />
-                      <strong>Place of Work:</strong> {user.placeOfWork}
-                      <br />
-                      <strong>Place of Birth:</strong> {user.birthPlace}
-                      <br />
-                      <strong>Permanent Residence:</strong>{' '}
-                      {user.permanentAddress}
-                      <br />
-                      <strong>Telephone Number:</strong> {user.phoneNumber}
-                      <br />
-                      <strong>Email:</strong> {user.emailAddress}
-                      <br />
-                      <strong>City of Enrollment:</strong> {user.cityToSignUp}
-                      <br />
-                      <strong>Course Enrollment:</strong> {user.courseToSignUp}
-                      <br />
-                      <strong>Trustee:</strong> {user.trusteeName}
-                      <br />
-                      <strong>Driver's License:</strong>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<DescriptionIcon />}
-                        href={user.driverLicenseLink}
-                        target="_blank"
-                        style={{ marginLeft: '10px' }}
-                      >
-                        View
-                      </Button>
-                      <br />
-                      <strong>Photo ID Card:</strong>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<PhotoCameraIcon />}
-                        href={user.idCardLink}
-                        target="_blank"
-                        style={{ marginLeft: '10px' }}
-                      >
-                        View
-                      </Button>
-                      <br />
-                      <strong>Medical Certificate:</strong>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<LocalHospitalIcon />}
-                        href={user.medicalCertificateLink}
-                        target="_blank"
-                        style={{ marginLeft: '10px' }}
-                      >
-                        View
-                      </Button>
-                      <br />
-                      <strong>Education Document:</strong>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<SchoolIcon />}
-                        href={user.educationDocumentLink}
-                        target="_blank"
-                        style={{ marginLeft: '10px' }}
-                      >
-                        View
-                      </Button>
-                      <br />
-                      <strong>Medical by Psychiatrist:</strong>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        startIcon={<MedicalServicesIcon />}
-                        href={user.medicalPsychiatristLink}
-                        target="_blank"
-                        style={{ marginLeft: '10px' }}
-                      >
-                        View
-                      </Button>
-                      <br />
-                      <strong>
-                        Copy of Existing Certificate of Legal Capacity:
-                      </strong>{' '}
-                      {user.copyOfExsistingLicenseLink}
-                      <br />
-                      <strong>Date:</strong> {user.dateOfSignUp}
-                      <br />
-                      <strong>Signature:</strong> {user.signatureLink}
+                      {user.socialSecurityNumber && (
+                        <>
+                          <strong>EGN:</strong> {user.socialSecurityNumber}
+                          <br />
+                        </>
+                      )}
+                      {user.placeOfWork && (
+                        <>
+                          <strong>Place of Work:</strong> {user.placeOfWork}
+                          <br />
+                        </>
+                      )}
+                      {user.birthPlace && (
+                        <>
+                          <strong>Place of Birth:</strong> {user.birthPlace}
+                          <br />
+                        </>
+                      )}
+                      {user.permanentAddress && (
+                        <>
+                          <strong>Permanent Residence:</strong>{' '}
+                          {user.permanentAddress}
+                          <br />
+                        </>
+                      )}
+                      {user.phoneNumber && (
+                        <>
+                          <strong>Telephone Number:</strong> {user.phoneNumber}
+                          <br />
+                        </>
+                      )}
+                      {user.emailAddress && (
+                        <>
+                          <strong>Email:</strong> {user.emailAddress}
+                          <br />
+                        </>
+                      )}
+                      {user.cityToSignUp && (
+                        <>
+                          <strong>City of Enrollment:</strong>{' '}
+                          {user.cityToSignUp}
+                          <br />
+                        </>
+                      )}
+                      {user.courseToSignUp && (
+                        <>
+                          <strong>Course Enrollment:</strong>{' '}
+                          {user.courseToSignUp}
+                          <br />
+                        </>
+                      )}
+                      {user.trusteeName && (
+                        <>
+                          <strong>Trustee:</strong> {user.trusteeName}
+                          <br />
+                        </>
+                      )}
+                      {user.driverLicenseLink && (
+                        <>
+                          <strong>Driver's License:</strong>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<DescriptionIcon />}
+                            href={user.driverLicenseLink}
+                            target="_blank"
+                            style={{ marginLeft: '10px' }}
+                          >
+                            View
+                          </Button>
+                          <br />
+                        </>
+                      )}
+                      {user.idCardLink && (
+                        <>
+                          <strong>Photo ID Card:</strong>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<PhotoCameraIcon />}
+                            href={user.idCardLink}
+                            target="_blank"
+                            style={{ marginLeft: '10px' }}
+                          >
+                            View
+                          </Button>
+                          <br />
+                        </>
+                      )}
+                      {user.medicalCertificateLink && (
+                        <>
+                          <strong>Medical Certificate:</strong>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<LocalHospitalIcon />}
+                            href={user.medicalCertificateLink}
+                            target="_blank"
+                            style={{ marginLeft: '10px' }}
+                          >
+                            View
+                          </Button>
+                          <br />
+                        </>
+                      )}
+                      {user.educationDocumentLink && (
+                        <>
+                          <strong>Education Document:</strong>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<SchoolIcon />}
+                            href={user.educationDocumentLink}
+                            target="_blank"
+                            style={{ marginLeft: '10px' }}
+                          >
+                            View
+                          </Button>
+                          <br />
+                        </>
+                      )}
+                      {user.medicalPsychiatristLink && (
+                        <>
+                          <strong>Medical by Psychiatrist:</strong>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<MedicalServicesIcon />}
+                            href={user.medicalPsychiatristLink}
+                            target="_blank"
+                            style={{ marginLeft: '10px' }}
+                          >
+                            View
+                          </Button>
+                          <br />
+                        </>
+                      )}
+                      {user.copyOfExsistingLicenseLink && (
+                        <>
+                          <strong>
+                            Copy of Existing Certificate of Legal Capacity:
+                          </strong>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<DescriptionIcon />}
+                            href={user.copyOfExsistingLicenseLink}
+                            target="_blank"
+                            style={{ marginLeft: '10px' }}
+                          >
+                            View
+                          </Button>
+                          <br />
+                        </>
+                      )}
+                      {user.dateOfSignUp && (
+                        <>
+                          <strong>Date:</strong> {user.dateOfSignUp}
+                          <br />
+                        </>
+                      )}
+                      {user.signatureLink && (
+                        <>
+                          <strong>Signature:</strong> {user.signatureLink}
+                          <br />
+                        </>
+                      )}
                     </Typography>
                   </CardContent>
                 </Card>
