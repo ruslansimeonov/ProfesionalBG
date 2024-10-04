@@ -2,7 +2,7 @@ import { google } from 'googleapis';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
-const RANGE = 'Лист1!A1:U10'; // Adjust the range as needed
+const RANGE = 'Лист1'; // Adjust the range as needed
 
 export default async function handler(
   req: NextApiRequest,
@@ -26,8 +26,10 @@ export default async function handler(
     });
 
     const rows = response.data.values;
-    if (rows.length) {
-      return res.status(200).json({ users: rows });
+    if (rows && rows.length > 1) {
+      // Skip the first row
+      const dataWithoutHeader = rows.slice(1);
+      return res.status(200).json({ users: dataWithoutHeader });
     } else {
       return res.status(404).json({ error: 'No data found' });
     }

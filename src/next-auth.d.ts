@@ -1,6 +1,6 @@
 // types/next-auth.d.ts (or src/next-auth.d.ts)
 
-import NextAuth, { DefaultSession, DefaultUser, JWT } from 'next-auth';
+import  { DefaultSession, DefaultUser } from 'next-auth';
 
 // Extend the NextAuth session and token types to include custom fields
 declare module 'next-auth' {

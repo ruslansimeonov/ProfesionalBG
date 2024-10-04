@@ -1,0 +1,23 @@
+export type UserSheets = {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  socialSecurityNumber: number;
+  placeOfWork: string;
+  birthPlace: string;
+  permanentAddress: string;
+  phoneNumber: string;
+  emailAddress: string;
+  cityToSignUp: string;
+  courseToSignUp: string;
+  trusteeName: string;
+  photoForDocumentLink: string;
+  driverLicenseLink: string;
+  idCardLink: string;
+  medicalCertificateLink: string;
+  educationDocumentLink: string;
+  medicalPsychiatristLink: string;
+  copyOfExsistingLicenseLink: string;
+  dateOfSignUp: string;
+  signatureLink: string;
+};
