@@ -13,6 +13,7 @@ const Sidebar: React.FC = () => {
   const menuItems = [
     { text: 'Home', href: '/' },
     { text: 'About', href: '/about' },
+    { text: 'Users', href: '/users' },
   ];
 
   return (

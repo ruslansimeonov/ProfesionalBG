@@ -1,6 +1,5 @@
 // pages/about.tsx
 import * as React from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
 import Layout from '../components/Layout';
 
 const About: React.FC = () => {
